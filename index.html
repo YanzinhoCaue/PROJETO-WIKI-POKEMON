@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="./src/css/reset.css">
     <link rel="stylesheet" href="./src/css/style.css">
     <link rel="stylesheet" href="./src/css/scrollbar.css">
@@ -50,5 +51,31 @@
 
         <ul class="listagem-pokemon"></ul>
     </main>
+
+    <section id="modal-pokemon" class="modal-overlay" hidden>
+        <div class="modal-conteudo" role="dialog" aria-modal="true" aria-labelledby="modal-pokemon-nome">
+            <button id="modal-fechar" class="modal-fechar" type="button" aria-label="Fechar modal">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+
+            <header class="modal-topo">
+                <div class="modal-titulo">
+                    <h2 id="modal-pokemon-nome"></h2>
+                    <span id="modal-pokemon-numero"></span>
+                </div>
+                <img id="modal-pokemon-sprite" class="modal-sprite" alt="Sprite do Pokemon">
+            </header>
+
+            <section class="modal-status-bloco" aria-label="Status base do Pokemon">
+                <h3>Status Base</h3>
+                <ul id="modal-pokemon-status" class="modal-status-lista"></ul>
+            </section>
+
+            <section class="modal-sprites-bloco" aria-label="Sprites extras do Pokemon">
+                <h3>Sprites Extras</h3>
+                <ul id="modal-pokemon-sprites" class="modal-sprites-lista"></ul>
+            </section>
+        </div>
+    </section>
 </body>
 </html>

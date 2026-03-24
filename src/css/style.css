@@ -146,6 +146,7 @@ main .listagem-pokemon{
 }
 
 main .cartao-pokemon{
+    --sprite-size: 72px;
     background: linear-gradient(180deg, var(--arcade-panel) 0%, var(--arcade-panel-2) 100%);
     width: 220px;
     padding: 14px;
@@ -163,6 +164,11 @@ main .cartao-pokemon:hover{
     box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.4);
 }
 
+main .cartao-pokemon:focus-visible{
+    outline: 4px solid var(--arcade-blue);
+    outline-offset: 2px;
+}
+
 .modo-escuro .cartao-pokemon{
     background: linear-gradient(180deg, #283049 0%, #1f263b 100%);
     border-color: #9fb0dd;
@@ -172,6 +178,7 @@ main .cartao-pokemon .informacoes{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border: 3px solid var(--arcade-ink);
     padding: 6px;
     background: #ffffff;
@@ -189,9 +196,17 @@ main .cartao-pokemon .informacoes span{
     line-height: 1.5;
 }
 
+main .cartao-pokemon .sprite-container{
+    width: 100%;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 main .cartao-pokemon .gif{
-    width: 96px;
-    height: 96px;
+    width: var(--sprite-size);
+    height: var(--sprite-size);
     image-rendering: pixelated;
 }
 
@@ -203,6 +218,10 @@ main .cartao-pokemon .tipos{
 }
 
 main .cartao-pokemon .tipo{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     padding: 5px 8px;
     border-radius: 0;
     border: 2px solid rgba(0, 0, 0, 0.45);
@@ -210,6 +229,16 @@ main .cartao-pokemon .tipo{
     font-family: 'Press Start 2P', cursive;
     font-size: 0.5rem;
     text-transform: uppercase;
+}
+
+main .cartao-pokemon .tipo-icone{
+    font-size: 0.85rem;
+    line-height: 1;
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 700,
+        'GRAD' 0,
+        'opsz' 20;
 }
 
 .grama{ background-color: #7ac74c; }
@@ -233,6 +262,7 @@ main .cartao-pokemon .tipo{
 
 main .descricao{
     width: 100%;
+    min-height: 92px;
     max-height: 92px;
     overflow-y: auto;
     font-size: 1.45rem;
@@ -266,6 +296,219 @@ main .descricao{
     color: var(--arcade-red);
 }
 
+.modal-overlay{
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 999;
+}
+
+.modal-overlay[hidden]{
+    display: none;
+}
+
+.modal-conteudo{
+    width: min(560px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 4px solid var(--arcade-ink);
+    background: linear-gradient(180deg, var(--arcade-panel) 0%, var(--arcade-panel-2) 100%);
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.4);
+    padding: 14px;
+    position: relative;
+}
+
+.modo-escuro .modal-conteudo{
+    background: linear-gradient(180deg, #283049 0%, #1f263b 100%);
+    border-color: #9fb0dd;
+}
+
+.modal-fechar{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 42px;
+    height: 42px;
+    border: 3px solid var(--arcade-ink);
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.modo-escuro .modal-fechar{
+    background: #111523;
+    border-color: #9fb0dd;
+    color: #f5f5f5;
+}
+
+.modal-topo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-right: 52px;
+}
+
+.modal-titulo h2{
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    text-transform: uppercase;
+}
+
+.modal-titulo span{
+    display: inline-block;
+    margin-top: 8px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+}
+
+.modal-sprite{
+    width: 86px;
+    height: 86px;
+    image-rendering: pixelated;
+}
+
+.modal-status-bloco{
+    border: 3px solid var(--arcade-ink);
+    background: rgba(255, 255, 255, 0.85);
+    padding: 10px;
+}
+
+.modo-escuro .modal-status-bloco{
+    border-color: #9fb0dd;
+    background: rgba(10, 12, 19, 0.8);
+}
+
+.modal-status-bloco h3{
+    margin: 0 0 12px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+}
+
+.modal-status-lista{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-status-item{
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) 52px 1fr;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-status-nome{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.48rem;
+    text-transform: uppercase;
+}
+
+.modal-status-valor{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.5rem;
+    text-align: right;
+}
+
+.modal-status-barra{
+    width: 100%;
+    height: 12px;
+    border: 2px solid var(--arcade-ink);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.modo-escuro .modal-status-barra{
+    border-color: #9fb0dd;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.modal-status-preenchimento{
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #32cd32 0%, #f7d02c 50%, #ff5722 100%);
+}
+
+.modal-sprites-bloco{
+    margin-top: 12px;
+    border: 3px solid var(--arcade-ink);
+    background: rgba(255, 255, 255, 0.85);
+    padding: 10px;
+}
+
+.modo-escuro .modal-sprites-bloco{
+    border-color: #9fb0dd;
+    background: rgba(10, 12, 19, 0.8);
+}
+
+.modal-sprites-bloco h3{
+    margin: 0 0 12px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+}
+
+.modal-sprites-lista{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 10px;
+}
+
+.modal-sprite-item{
+    border: 2px solid rgba(0, 0, 0, 0.35);
+    background: rgba(255, 255, 255, 0.55);
+    min-height: 110px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.modo-escuro .modal-sprite-item{
+    border-color: rgba(159, 176, 221, 0.55);
+    background: rgba(20, 24, 36, 0.85);
+}
+
+.modal-sprite-item img{
+    width: 72px;
+    height: 72px;
+    image-rendering: pixelated;
+}
+
+.modal-sprite-item span{
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.42rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.modal-sprite-vazio{
+    grid-column: 1 / -1;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.48rem;
+    line-height: 1.6;
+    text-transform: uppercase;
+    padding: 8px;
+    border: 2px dashed rgba(0, 0, 0, 0.35);
+    text-align: center;
+}
+
+.modo-escuro .modal-sprite-vazio{
+    border-color: rgba(159, 176, 221, 0.55);
+}
+
 @media (max-width: 980px){
     .barra-filtros{
         grid-template-columns: 1fr;
@@ -274,5 +517,10 @@ main .descricao{
     header,
     main{
         padding: 14px;
+    }
+
+    .modal-status-item{
+        grid-template-columns: 1fr 48px 1fr;
+        gap: 8px;
     }
 }
