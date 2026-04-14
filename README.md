@@ -4,12 +4,6 @@ Este é um projeto de front-end que apresenta uma listagem de Pokémon em format
 
 ---
 
-### **🎬 Demonstração**
-
-![wiki-pokemon](https://github.com/YanzinhoCaue/PROJETO-WIKI-POKEMON/assets/127339610/c4026a2f-1eed-4628-a952-eeacda7f2817)
-
----
-
 ### **✨ Funcionalidades e Features Técnicas**
 
 * **☀️/🌙 Alternador de Tema (Dark Mode)**:
